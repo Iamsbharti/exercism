@@ -1,4 +1,4 @@
-import { addBorder } from "./main.js";
+import { addBorder } from "./mainAddBoder.js";
 
 /**
  * Test Suite
