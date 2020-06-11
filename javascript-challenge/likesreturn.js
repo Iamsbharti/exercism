@@ -1,14 +1,14 @@
 function likes(names) {
   // TODO
-  let returnLike = " likes this";
+  let returnLike = " like this";
   let finalStmt = "";
   if (names.length === 0) {
-    return "no one" + returnLike;
+    return "no one" + " likes this";
   } else {
     //let newMap = names.map((nm, index) => `${nm}`);
     switch (names.length) {
       case 1:
-        return (finalStmt = names.join().concat(returnLike));
+        return (finalStmt = names.join("").concat(" likes this"));
       case 2:
         return (finalStmt = names.join(" and ").concat(returnLike));
       case 3:
@@ -20,17 +20,22 @@ function likes(names) {
           )
           .join("")
           .concat(returnLike)
-          .replace(/,/, "");
+          .replace(/,/, " ")
+          .trim("");
       default:
-        return names
-          .map((m, index) =>
-            index <= 1
-              ? finalStmt.concat(`,${m}`)
-              : finalStmt.concat(` and ${names.length - index} others`)
-          )
-          .join("")
-          .concat(returnLike)
-          .replace(/,/, "");
+        return names.reduce((pre, next, index) => {
+          console.log(index, names.length);
+          return pre
+            .concat(
+              index <= 1
+                ? ` ,${next}`
+                : index > 1 && ","
+                ? ` and ${names.length - index} others${returnLike}`
+                : ""
+            )
+            .replace(/,/, "")
+            .trim("");
+        });
     }
   }
 }
@@ -38,7 +43,7 @@ console.log(likes([]));
 console.log(likes(["peter"]));
 console.log(likes(["Jacob", "Alex"]));
 console.log(likes(["Max", "John", "Mark"]));
-console.log(likes(["Alex", "Jacob", "Mark", "Max"]));
+console.log(likes(["Alex", "Jacob", "Mark", "Max", "sb"]));
 
 /*  Test.assertEquals(likes(['Jacob', 'Alex']), 'Jacob and Alex like this');
     Test.assertEquals(likes(['Max', 'John', 'Mark']), 'Max, John and Mark like this');
