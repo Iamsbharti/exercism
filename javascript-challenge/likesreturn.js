@@ -23,19 +23,17 @@ function likes(names) {
           .replace(/,/, " ")
           .trim("");
       default:
-        return names.reduce((pre, next, index) => {
-          console.log(index, names.length);
-          return pre
-            .concat(
-              index <= 1
-                ? ` ,${next}`
-                : index > 1 && ","
-                ? ` and ${names.length - index} others${returnLike}`
-                : ""
-            )
-            .replace(/,/, "")
-            .trim("");
-        });
+        return names
+          .map((m, index) =>
+            index <= 1
+              ? `, ${m}`
+              : index === names.length - 2
+              ? ` and ${names.length - 2} others${returnLike}`
+              : ""
+          )
+          .join("")
+          .replace(/,/, " ")
+          .trim("");
     }
   }
 }
@@ -43,7 +41,7 @@ console.log(likes([]));
 console.log(likes(["peter"]));
 console.log(likes(["Jacob", "Alex"]));
 console.log(likes(["Max", "John", "Mark"]));
-console.log(likes(["Alex", "Jacob", "Mark", "Max", "sb"]));
+console.log(likes(["Alex", "Jacob", "Mark", "Max", "sb", "hj", "ashj"]));
 
 /*  Test.assertEquals(likes(['Jacob', 'Alex']), 'Jacob and Alex like this');
     Test.assertEquals(likes(['Max', 'John', 'Mark']), 'Max, John and Mark like this');
